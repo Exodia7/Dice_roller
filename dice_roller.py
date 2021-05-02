@@ -1,8 +1,4 @@
 ## THIS FILE CAN READ INPUT FOR GENERATING DICE ROLLS FOR DICE WITH AN ARBITRARY NUMBER OF SIDES
-# There are 3 steps
-#   1. parsing the user input
-#   2. the actual dice rolls
-#   3. printing the results
 
 from random import randint
 import re
@@ -58,8 +54,8 @@ def parse_input(input_string):
 			# Then it is a constant, we just need to find what number it is
 			if is_int(dice_roll):		# INTEGER NUMBER
 				constant = get_as_int(dice_roll)
-			##elif is_float(dice_roll):	# FLOAT NUMBER
-			##	result[CONST_ID].append(get_as_float(dice_roll))
+			elif is_float(dice_roll):	# FLOAT NUMBER
+				result[CONST_ID].append(get_as_float(dice_roll))
 			else:
 				# IN THIS CASE, THE CONSTANT IS NOT GIVEN AS A NUMBER
 				## TODO: HOW TO HANDLE THIS CASE
@@ -92,7 +88,6 @@ def parse_input(input_string):
 
 
 
-# TO TEST ? --> should work, quite simple
 def split_string(input_string):
 	""" Splits the provided string at all "+" symbols
 		
@@ -114,7 +109,6 @@ def split_string(input_string):
 	return parsed
 
 
-# TO TEST ? --> should work, quite simple
 def roll_dices(num_dices, num_sides):
 	""" Roll <num_dices> dices with <num_sides> sides each.
 		
@@ -123,7 +117,7 @@ def roll_dices(num_dices, num_sides):
 			num_sides the number of sides of the dice (= max number the dice can return)
 		
 		Output:
-			a list of the outcomes from the dice rolls
+			a list of the outcomes from the dice rolls (each dice roll is a random number between 1 and <num_sides>
 	"""
 	outcomes = []
 	
@@ -137,7 +131,6 @@ def roll_dices(num_dices, num_sides):
 	return outcomes
 
 
-# TO TEST
 def is_int(input_string):
 	""" Checks whether the provided input string is an integer number
 	
@@ -150,7 +143,6 @@ def is_int(input_string):
 	return (re.match(INT_REG_EXPR, input_string) is not None)
 
 
-# TO TEST
 def get_as_int(input_string):
 	""" Retrieve the given string and return it as an integer number type.
 	
@@ -165,7 +157,6 @@ def get_as_int(input_string):
 	return int(input_string)
 
 
-# TO TEST
 def is_float(input_string):
 	""" Checks whether the provided input string is a float number (decimal number)
 	
@@ -178,7 +169,6 @@ def is_float(input_string):
 	return (re.match(FLOAT_REG_EXPR, input_string) is not None)
 
 
-# TO TEST
 def get_as_float(input_string):
 	""" Retrieve the given string and return it as a float number type.
 	
@@ -219,7 +209,7 @@ def print_outcomes(dice_rolls, constant):
 	
 	# Finally, print the constant factor
 	if constant is not None:
-		print('And the constant factor being: {constant}')
+		print(f'And the constant factor being: {constant}')
 		total_sum += constant
 		num_items += 1
 	
@@ -233,7 +223,13 @@ def print_intro():
 	""" Display this program's name in large Ascii art letters,
 		and give an introduction to the User.
 	"""
-	pass
+	print('''\
+  ____    _                                        _   _               
+ |  _ \  (_)   ___    ___           _ __    ___   | | | |   ___   _ __ 
+ | | | | | |  / __|  / _ \  _____  | '__|  / _ \  | | | |  / _ \ | '__|
+ | |_| | | | | (__  |  __/ |_____| | |    | (_) | | | | | |  __/ | |   
+ |____/  |_|  \___|  \___|         |_|     \___/  |_| |_|  \___| |_|   \n''')
+	print('Welcome to Dice-roller.\nEnter "help" if you need help :D\n-------------------------------------------------')
 
 
 ##### TODO
@@ -241,8 +237,16 @@ def print_help():
 	""" Display the help menu, giving (short) explanations for possible commands,
 		and especially the format for the dice rolling
 	"""
-	print('Dear User, this section still needs to be implemented, sorry. ')
-	print('\nAs a general rule, any standard D&D form should work, like e.g. \n  1d20 + 2d6 + 5\n\n')
+	print('----------------------- HELP -----------------------')
+	print('Available commands are:')
+	print(' - help: displays this help message')
+	print(' - stop: exit this program\n')
+	print('----------------------------------------')
+	print('\nMake dice rolls like this for example:')
+	print('    1d3 + 2d20 + 5\n')
+	print('which will roll \n - 1 dice with 3 sides, \n - 2 dices with 20 sides, \n - sum up the results, \n - and add the constant 5 to the final result')
+	print('\nNote that all individual dice roll results are also given')
+	print('----------------------------------------------------')
 	
 
 
@@ -250,14 +254,14 @@ def print_help():
 if __name__ == "__main__":
 	##pp = PrettyPrinter()		# FOR DEBUGGING
 	
-
-	##### TODO: add an intro explanation
+	# Give an introduction to the program
 	print_intro()
+	
 	
 	not_stop = True
 	while not_stop:
 		# Get the user's input
-		input_string = input('Enter the dice roll you want to make (or stop): ').lower()
+		input_string = input('\nEnter the dice roll you want to make (or "help"): ').lower()
 		print()
 		
 		if input_string == 'stop':
