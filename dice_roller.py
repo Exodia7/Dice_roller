@@ -218,10 +218,11 @@ def print_outcomes(dice_rolls, constant):
 		print(f'------------------------------------------------------------------\nTOTAL SUM: {total_sum}\n\n')
 
 
-##### TODO
 def print_intro():
 	""" Display this program's name in large Ascii art letters,
 		and give an introduction to the User.
+		
+		Credits: the giant "Dice-roller" ascii was made with the website https://www.messletters.com/en/big-text/
 	"""
 	print('''\
   ____    _                                        _   _               
@@ -232,7 +233,6 @@ def print_intro():
 	print('Welcome to Dice-roller.\nEnter "help" if you need help :D\n-------------------------------------------------')
 
 
-##### TODO
 def print_help():
 	""" Display the help menu, giving (short) explanations for possible commands,
 		and especially the format for the dice rolling
